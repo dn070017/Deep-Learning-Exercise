@@ -9,6 +9,8 @@ bokeh serve --show [animation.py]
 ```
 
 ## Content
+### Linear Algebra
+* [Notebooks](./linear_algebra/linear_algebra.ipynb)
 ### Multilayer Perceptron
 * [Notes](https://hackmd.io/gVLoBUVJREWVS4DKr_2aHw)
 ### Activation Functions
