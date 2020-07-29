@@ -11,6 +11,9 @@ bokeh serve --show [animation.py]
 ## Content
 ### Linear Algebra
 * [Notebooks](./linear_algebra/linear_algebra.ipynb)
+### Gradient Descent
+* [Notebooks](./gradient_descent/gradient_descent.ipynb)
+
 ### Multilayer Perceptron
 * [Notes](https://hackmd.io/gVLoBUVJREWVS4DKr_2aHw)
 ### Activation Functions
