@@ -8,6 +8,7 @@ from bokeh.palettes import Magma256
 from bokeh.layouts import column, row
 from bokeh.plotting import curdoc, figure, output_notebook, show
 from copy import deepcopy
+from random import randint
 import time
 
 #%%
@@ -71,7 +72,7 @@ def change_dim(value, old, new):
         w2.visible = True
         init_w2.visible = True
         layout.children[0] = p2d
-        metrics[0].visible = False
+        metrics[0].visible = False 
         metrics[1].visible = True
 
     change_params(None, None, None)
@@ -120,10 +121,16 @@ def update():
     if num_samples.value % batch_size.value != 0:
         batches.extend([num_samples.value % batch_size.value])
 
-    for batch_x, batch_y in zip(tf.split(x, batches, axis=0), tf.split(y, batches, axis=0)):
+    indices = tf.range(start=0, limit=num_samples.value, dtype=tf.int32)
+    tf.random.set_seed(randint(0, 100))
+    shuffled_indices = tf.random.shuffle(indices)
+
+    shuffled_x = tf.gather(x, shuffled_indices)
+    shuffled_y = tf.gather(y, shuffled_indices)
+
+    for batch_x, batch_y in zip(tf.split(shuffled_x, batches, axis=0), tf.split(shuffled_y, batches, axis=0)):
         
         g = gradient(w_hat, batch_x, batch_y)
-        
         w_hat_old = w_hat.numpy()
         w_hat = tf.Variable(w_hat - eta.value * g)
         l = loss(w_hat, x, y, test=True)
